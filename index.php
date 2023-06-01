@@ -8,17 +8,14 @@ define("ENV", parse_ini_file(".env"));
 $controller = "home";
 
 $allowed_controllers = [
-    "cart",
-    "checkout",
+
     "home",
-    "login",
-    "logout",
-    "productdetail",
-    "products",
-    "register",
-    "subcategories",
-    "api",
-    "admin"
+    "gallery",
+    "contact",
+    "categories"
+
+
+
 ];
 
 if (!empty($url_parts[1])) {

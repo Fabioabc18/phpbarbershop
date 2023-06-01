@@ -41,9 +41,8 @@
                     </h3>
                     <ul class="opening_time">
                         <li>Segunda - Sexta 10:00h - 20:00h</li>
-                        <li>Segunda - Sexta 10:00h - 20:00h</li>
-                        <li>Segunda - Sexta 10:00h - 20:00h</li>
-                        <li>Segunda - Sexta 10:00h - 20:00h</li>
+                        <li>Sábado - Domingo (Encerrados)</li>
+
 
                     </ul>
                 </div>
@@ -64,6 +63,3 @@
         </div>
     </div>
 </section>
-
-
-<?php include "views/footer.php"; ?>

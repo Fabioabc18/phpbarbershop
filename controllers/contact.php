@@ -9,6 +9,7 @@ if (isset($_POST["send"])) {
         $_POST[$key] = trim(htmlspecialchars(strip_tags($value)));
     }
 
+
     if (
         mb_strlen($_POST["name"]) >= 3 &&
         mb_strlen($_POST["name"]) <= 60 &&
@@ -23,6 +24,10 @@ if (isset($_POST["send"])) {
 
         $contactId = $contactModel->saveContact($_POST);
 
+
+        header('Content-Type: application/json');
+        echo json_encode(['status' => 'OK']);
+        exit;
     }
 
 

@@ -4,7 +4,7 @@ require_once('base.php');
 
 class Categories extends Base
 {
-    public function getPriceList()
+    public function getCategories()
     {
         $query = $this->db->prepare("
             SELECT c.name AS category_name, s.name, s.description, s.price

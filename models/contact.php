@@ -1,6 +1,6 @@
 <?php
 
-require('base.php');
+require_once('base.php');
 
 class Contact extends Base
 {
@@ -9,8 +9,8 @@ class Contact extends Base
 
         $query = $this->db->prepare("
             INSERT INTO contact
-            (name, email, subject, message)
-            VALUES(?, ?, ?, ?)
+            (name, email, subject, message,send_at)
+            VALUES(?, ?, ?, ?, NOW())
         ");
 
         $result = $query->execute([
@@ -18,6 +18,7 @@ class Contact extends Base
             $data["email"],
             $data["subject"],
             $data["message"]
+
 
         ]);
 

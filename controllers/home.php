@@ -1,13 +1,26 @@
 <?php
 
+include('models/gallery.php');
+include('models/categories.php');
 
-include "models/base.php";
+
+
+$modelGallery = new Gallery();
+
+$images = $modelGallery->get();
+
+$categoriesModel = new Categories();
+$categories = $categoriesModel->getCategories();
+
+
 
 
 
 function homeAction()
 {
 
+    global $images;
+    global $categories;
     include "views/header.php";
     include "views/navbar.php";
     include "views/about.php";
@@ -18,10 +31,7 @@ function homeAction()
     include "views/reviews.php";
     include "views/pricelist.php";
     include "views/contact.php";
-    require "C:/xampp/htdocs/templates/images";
-    require "templates/css";
-    require "templates/js";
-
+    include "views/widgetsection.php";
     include "views/footer.php";
 }
 
