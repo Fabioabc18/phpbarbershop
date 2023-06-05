@@ -9,9 +9,8 @@
             <?php foreach ($images as $image) { ?>
                 <div class="col-lg-3 col-md-6 gallery-column">
                     <div style="height: 230px;">
-                        <div class="gallery-img">
-                            <img src="/design/images/<?php echo $image['photo']; ?>" alt="Gallery Image">
-                        </div>
+                        <div class="gallery-img"
+                            style="background-image: url('/design/images/<?php echo $image['photo']; ?>');"></div>
                     </div>
                 </div>
             <?php } ?>

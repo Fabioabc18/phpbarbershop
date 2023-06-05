@@ -128,6 +128,17 @@ function validateForm() {
 }
 
 
+function fixStepIndicator(n) 
+{
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++)
+    {
+        x[i].className = x[i].className.replace(" active", "");
+    }
+
+    x[n].className += " active";
+}
+
 
 
 
