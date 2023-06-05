@@ -6,30 +6,16 @@
             <div class="heading-line"></div>
         </div>
         <ul class="team_members row">
-            <li class="col-lg-3 col-md-6 padd_col_res">
-                <div class="team_member">
-                    <img src="/design/images/team-1.jpg" alt="Team Member">
-                    <span>Andrei</span>
-                </div>
-            </li>
-            <li class="col-lg-3 col-md-6 padd_col_res">
-                <div class="team_member">
-                    <img src="/design/images/team-2.jpg" alt="Team Member">
-                    <span>Ivo</span>
-                </div>
-            </li>
-            <li class="col-lg-3 col-md-6 padd_col_res">
-                <div class="team_member">
-                    <img src="/design/images/team-3.jpg" alt="Team Member">
-                    <span>Rafael</span>
-                </div>
-            </li>
-            <li class="col-lg-3 col-md-6 padd_col_res">
-                <div class="team_member">
-                    <img src="/design/images/team-4.jpg" alt="Team Member">
-                    <span>Tiago</span>
-                </div>
-            </li>
+            <?php foreach ($barbers as $barber) { ?>
+                <li class="col-lg-3 col-md-6 padd_col_res">
+                    <div class="team_member">
+                        <img src="/design/images/<?php echo $barber['photo']; ?>" alt="Team Member">
+                        <span>
+                            <?php echo $barber['first_name']; ?>
+                        </span>
+                    </div>
+                </li>
+            <?php } ?>
         </ul>
     </div>
 </section>

@@ -1,12 +1,16 @@
 <?php
 
 include('models/gallery.php');
+include('models/team.php');
 include('models/categories.php');
 include('models/appointment.php');
 
 
 $modelGallery = new Gallery();
 $images = $modelGallery->get();
+
+$modelTeam = new Team();
+$barbers = $modelTeam->get();
 
 $categoriesModel = new Categories();
 $categories = $categoriesModel->getCategories();
@@ -25,6 +29,7 @@ function homeAction()
 {
 
     global $images;
+    global $barbers;
     global $categories;
     global $services;
     global $employees;
