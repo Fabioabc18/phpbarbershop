@@ -22,7 +22,7 @@
                         </div>
                     </div>
 
-                    <button id="app_submit" class="default_btn" type="submit">
+                    <button id="app_submit" class="default_btn" type="submit" href="/appointment.php">
                         Agendamento
                     </button>
                 </form>

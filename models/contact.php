@@ -2,6 +2,8 @@
 
 require_once('base.php');
 
+
+
 class Contact extends Base
 {
     public function saveContact($data)
@@ -12,6 +14,7 @@ class Contact extends Base
             (name, email, subject, message,send_at)
             VALUES(?, ?, ?, ?, NOW())
         ");
+
 
         $result = $query->execute([
             $data["name"],
@@ -24,4 +27,7 @@ class Contact extends Base
 
         return $this->db->lastInsertId();
     }
+
+
+
 }

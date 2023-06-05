@@ -2,6 +2,8 @@
 
 require_once('base.php');
 
+
+
 class Categories extends Base
 {
     public function getCategories()

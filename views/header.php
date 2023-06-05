@@ -11,11 +11,11 @@
 
 
 
-	<link rel="stylesheet" type="text/css" href="Design/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="Design/fonts/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="Design/css/main.css">
-	<link rel="stylesheet" type="text/css" href="Design/css/responsive.css">
-	<link rel="stylesheet" type="text/css" href="Design/css/barber-icons.css">
+	<link rel="stylesheet" type="text/css" href="/design/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/design/fonts/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="/design/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/design/css/responsive.css">
+	<link rel="stylesheet" type="text/css" href="/design/css/barber-icons.css">
 
 
 

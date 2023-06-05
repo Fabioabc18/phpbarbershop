@@ -7,12 +7,15 @@ define("ENV", parse_ini_file(".env"));
 
 $controller = "home";
 
+
 $allowed_controllers = [
 
     "home",
     "gallery",
     "contact",
-    "categories"
+    "categories",
+    "appointment"
+
 
 
 

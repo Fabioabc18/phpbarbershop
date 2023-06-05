@@ -13,6 +13,7 @@
                     </h4>
                 </div>
             </div>
+
             <div class="col-lg-6 sm-padding">
                 <div class="contact-form">
                     <form id="contact_form" method="post" action="/contact">

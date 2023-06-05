@@ -12,6 +12,7 @@ class Gallery extends Base
             FROM gallery
         ");
 
+
         $query->execute();
 
         return $query->fetchAll();
