@@ -26,7 +26,7 @@
         </nav>
     </div>
 </header>
-appointment.php:
+
 
 <div class="header-height" style="height: 80px;"></div>
 

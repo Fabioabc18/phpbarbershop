@@ -1,3 +1,4 @@
+// form contacto
 document.addEventListener("DOMContentLoaded", () => {
     const contactForm = document.getElementById("contact_form");
     const statusMessage = document.getElementById("contact_status_message");
@@ -30,10 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
     
 });
 
-$('.service_label').click(function() 
-{
-    $(this).button('toggle');
-}); 
+// modal
+
+function showAppointmentForm() {
+    document.getElementById("modal").style.display = "block";
+}
+
 
  
 let selectedEmployee = '';
@@ -46,26 +49,32 @@ function showAppointmentForm() {
 document.addEventListener("DOMContentLoaded", function () {
     appointmentBtn = document.getElementById("appointmentBtn");
     appointmentBtn.addEventListener("click", showAppointmentForm);
+
+    
 });
 
-let checkboxes = document.querySelectorAll('input[name="selected_services[]"]');
+
+
+
+// função para serviço selecionado
 
 function handleServiceSelection(event) {
-    const selectedServices = document.querySelectorAll('input[name="selected_services[]"]:checked');
-    const selectedServiceIds = Array.from(selectedServices).map(service => service.value);
-    console.log('Selected Services:', selectedServiceIds);
 
-    checkboxes.forEach((checkbox) => {
-        console.log('Checkbox Value:', checkbox.value);
-        console.log('Checkbox Checked:', checkbox.checked);
-    });
+    let indexOf = selectedServices.indexOf(event.target.dataset.service_id)
+    console.log(event.target.dataset.service_id);
+    if( indexOf === -1 ) {
+        selectedServices.push(event.target.dataset.service_id)
+
+    }
+    else {
+        selectedServices.splice(indexOf, 1)
+    } 
+    console.log(selectedServices);
 }
 
-checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener('change', handleServiceSelection);
-});
 
 
+//botoes
 let currentTab = 0;
 showTab(currentTab);
 
@@ -80,19 +89,23 @@ function showTab(n) {
 
     if (n === 0) {
         document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("submitBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
 
     if (n === (tabs.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("submitBtn").style.display = "inline";
+
     } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
+        document.getElementById("nextBtn").innerHTML = "Próximo";
     }
+    
+    
 }
 
 function nextPrev(n) {
-    
     let tabs = document.getElementsByClassName("tab_reservation");
 
     if (n === 1 && !validateForm()) {
@@ -104,6 +117,8 @@ function nextPrev(n) {
     currentTab += n;
 
     if (currentTab >= tabs.length) {
+        console.log('Selected Employee:', selectedEmployee);
+        console.log('Selected Services:', selectedServices);
         document.getElementById("appointment_form").submit();
         return false;
     }
@@ -111,43 +126,33 @@ function nextPrev(n) {
     showTab(currentTab);
 
     if (currentTab === 1) {
-        document.querySelector(`input[value="${selectedEmployee}"]`).checked = true;
-    }
-
-
-    if (currentTab === 0) {
-        selectedServices.forEach(service => {
-            document.querySelector(`input[value="${service}"]`).checked = true;
-        });
+        const selectedEmployeeRadio = document.querySelector('input[name="selected_employee"]:checked');
+        if (selectedEmployeeRadio) {
+            selectedEmployee = selectedEmployeeRadio.value;
+            console.log('Selected Employee:', selectedEmployee);
+        }
     }
 }
+
+
+// validação form
 
 function validateForm() {
     
     return true;
 }
 
-
-function fixStepIndicator(n) 
+$('.service_label').click(function() 
 {
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++)
-    {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-
-    x[n].className += " active";
-}
+    $(this).button('toggle');
+}); 
 
 
 
 
-
-/* document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("appointment_form");
-    const openModalButton = document.getElementById("openModalButton");
   
-    openModalButton.addEventListener("click", () => {
-      modal.style.display = "block";
-    });
-  }); */
+  
+  
+  
+
+

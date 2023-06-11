@@ -14,7 +14,8 @@ $allowed_controllers = [
     "gallery",
     "contact",
     "categories",
-    "appointment"
+    "appointment",
+
 
 
 

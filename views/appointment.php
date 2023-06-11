@@ -1,3 +1,61 @@
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        let selectedDateInput = document.getElementById("selected_date");
+
+        selectedDateInput.addEventListener("change", function () {
+            let selectedDate = new Date(selectedDateInput.value);
+            let formattedDate = selectedDate.toISOString();
+            document.getElementById("selected_date").value = selectedDate;
+            console.log("data selecionada:", selectedDate);
+
+
+            fetch("/appointment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: JSON.stringify({ selected_date: selectedDate }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Barbeiros disponíveis:", data);
+
+                    updateTimeslots(data);
+                })
+                .catch((error) => {
+                    console.error("Erro na requisição AJAX:", error);
+                });
+        });
+    });
+
+    function updateTimeslots(timeslots) {
+        const timeslotsSelect = document.getElementById("selected_hour");
+
+
+        timeslotsSelect.innerHTML = "";
+
+
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Escolha a hora";
+        timeslotsSelect.appendChild(defaultOption);
+
+
+        timeslots.forEach((timeslot) => {
+            const option = document.createElement("option");
+            option.value = timeslot;
+            option.textContent = timeslot;
+            timeslotsSelect.appendChild(option);
+        });
+    }
+
+</script>
+
+
+
+
+</script>
+
 <link rel="stylesheet" href="Design/css/appointment-page-style.css">
 
 <section class="booking_section">
@@ -31,11 +89,11 @@
                                         </div>
                                         <div class="select_item_bttn">
                                             <div class="btn-group-toggle" data-toggle="buttons">
-                                                <label class="service_label item_label btn btn-secondary">
-                                                    <input type="checkbox" name="selected_services[]"
-                                                        value="<?php echo $service['service_id']; ?>" autocomplete="off"
-                                                        onclick="handleServiceSelection(event)">Selecione
-                                                </label>
+                                                <button type="button" class="service_label item_label btn btn-secondary"
+                                                    data-service_id="<?php echo $service['service_id']; ?>"
+                                                    onclick="handleServiceSelection(event)">
+                                                    Selecione
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -46,13 +104,46 @@
                 </div>
 
 
+                <div class="select_date_time_div tab_reservation" id="calendar_tab" style="display: none;">
+                    <div class="alert alert-danger" role="alert" style="display: none">
+                        Escolha a hora
+                    </div>
+
+                    <div class="text_header">
+                        <span>
+                            2. Escolha o dia e hora
+                        </span>
+                    </div>
+                    <div class="">
+                        <div class="">
+                            <input type="date" class="form-control" id="selected_date" name="selected_date">
+                        </div>
+
+                        <div id="hour_select_container">
+                            <select id="selected_hour" name="selected_hour">
+                                <option value=""> Escolha a hora</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="calendar_tab" style="overflow-x: auto; overflow-y: visible;" id="calendar_tab_in">
+                        <div id="calendar_loading">
+                            <img src="/design/images/ajax_loader_gif.gif"
+                                style="display: block; margin-left: auto; margin-right: auto;">
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <div class="select_employee_div tab_reservation" id="employees_tab" style="display: none;">
                     <div class="alert alert-danger" role="alert" style="display: none">
                         Escolha um dos nossos barbeiros!
                     </div>
                     <div class="text_header">
                         <span>
-                            2. Escolha do barbeiro
+                            3. Escolha o barbeiro
                         </span>
                     </div>
                     <div class="btn-group-toggle" data-toggle="buttons">
@@ -60,7 +151,7 @@
                             <?php
                             $displayedEmployees = [];
 
-                            foreach ($employees as $employee) {
+                            foreach ($availableBarber as $employee) {
                                 $fullName = $employee['first_name'] . " " . $employee['last_name'];
 
 
@@ -95,24 +186,6 @@
                 </div>
 
 
-                <div class="select_date_time_div tab_reservation" id="calendar_tab" style="display: none;">
-                    <div class="alert alert-danger" role="alert" style="display: none">
-                        Escolha a hora
-                    </div>
-
-                    <div class="text_header">
-                        <span>
-                            3. Escolha o dia e hora
-                        </span>
-                    </div>
-
-                    <div class="calendar_tab" style="overflow-x: auto; overflow-y: visible;" id="calendar_tab_in">
-                        <div id="calendar_loading">
-                            <img src="/design/images/ajax_loader_gif.gif"
-                                style="display: block; margin-left: auto; margin-right: auto;">
-                        </div>
-                    </div>
-                </div>
 
                 <div class="client_details_div tab_reservation" id="client_tab" style="display: none;">
                     <div class="text_header">
@@ -135,17 +208,18 @@
                             </div>
                             <div class="col-sm-6">
                                 <input type="email" name="client_email" id="client_email" class="form-control"
-                                    placeholder="E-mail">
+                                    placeholder="E-mail" required>
                                 <span class="invalid-feedback">Email inválido!</span>
                             </div>
                             <div class="col-sm-6">
                                 <input type="text" name="client_phone_number" id="client_phone_number"
-                                    class="form-control" placeholder="Phone number">
+                                    class="form-control" placeholder="Phone number" required>
                                 <span class="invalid-feedback">Número telemóvel inválido</span>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div id="contact_status_message"></div>
 
                 <div style="overflow:auto;padding: 30px 0px;">
                     <div style="float:right;">
@@ -154,6 +228,7 @@
                             onclick="nextPrev(-1)">Anterior</button>
                         <button type="button" id="nextBtn" class="next_prev_buttons"
                             onclick="nextPrev(1)">Próximo</button>
+                        <button type="submit" name="send" id="submitBtn" class="next_prev_buttons">Submeter</button>
                     </div>
                 </div>
 

@@ -6,6 +6,10 @@ include('models/categories.php');
 include('models/appointment.php');
 
 
+
+
+
+
 $modelGallery = new Gallery();
 $images = $modelGallery->get();
 
@@ -15,11 +19,11 @@ $barbers = $modelTeam->get();
 $categoriesModel = new Categories();
 $categories = $categoriesModel->getCategories();
 
-$model = new Appointment();
-$services = $model->getChoiceOfServices();
+$appointmentModel = new Appointment();
+$services = $appointmentModel->getChoiceOfServices();
+$availableBarber = $appointmentModel->getAvailableBarbers();
 
-$emModel = new Appointment();
-$employees = $emModel->getChoiceOfEmployees();
+
 
 
 
@@ -32,7 +36,14 @@ function homeAction()
     global $barbers;
     global $categories;
     global $services;
-    global $employees;
+    global $availableBarber;
+
+
+
+
+
+
+
 
 
 
